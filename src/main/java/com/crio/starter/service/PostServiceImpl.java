@@ -3,6 +3,7 @@ package com.crio.starter.service;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.crio.starter.Exception.DuplicatePostException;
 import com.crio.starter.data.Post;
 import com.crio.starter.exchange.PostDto;
 import com.crio.starter.exchange.PostResponse;
@@ -39,6 +40,11 @@ public class PostServiceImpl implements PostService{
         //     throw new Exception();
         // }
 
+        boolean isPresent=postRepo.findByNameAndUrlAndCaption(post.getName(),post.getUrl(),post.getCaption()).isPresent();
+        
+        if(isPresent){
+            throw new DuplicatePostException();
+        }
 
         post.setId(sequenceGeneratorService.generateSequence(Post.SEQUENCE_NAME));
         Post savedPost=postRepo.save(post);

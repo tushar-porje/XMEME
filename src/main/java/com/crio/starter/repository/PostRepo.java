@@ -8,4 +8,6 @@ public interface PostRepo extends MongoRepository<Post,Integer>{
     Post findByName(String name);
 
     Optional<Post> findById(Long id);
+
+    Optional<Post> findByNameAndUrlAndCaption(String name,String url,String caption);
 }

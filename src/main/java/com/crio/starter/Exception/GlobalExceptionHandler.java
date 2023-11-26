@@ -17,4 +17,11 @@ public class GlobalExceptionHandler {
         map.put("error","this id is not present");
         return new ResponseEntity<Map<String,String>>(map, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(DuplicatePostException.class)
+    ResponseEntity<Map<String,String>> duplicatePostException(DuplicatePostException ex){
+        Map<String,String> map=new HashMap<>();
+        map.put("Error", ex.getMessage());
+        return new ResponseEntity<Map<String,String>>(map, HttpStatus.CONFLICT);
+    }
 }

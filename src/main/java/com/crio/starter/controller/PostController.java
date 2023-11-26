@@ -29,13 +29,9 @@ public class PostController {
     ResponseEntity<Map<String,String>> createPost(@RequestBody PostDto postDto){
         PostDto postCreatedDto;        
         Map<String,String> map=new HashMap<>();
-        // try {
         postCreatedDto = postService.createPost(postDto);
         map.put("id", Long.toString(postCreatedDto.getId()));
         return ResponseEntity.ok(map);
-        // } catch (Exception e) {
-        //     return new ResponseEntity<>(HttpStatus.CONFLICT);
-        // }
     }
 
     //get all atmost 100 latest post
