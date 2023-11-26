@@ -37,6 +37,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.1'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.7.1'
     testImplementation 'org.springframework.amqp:spring-rabbit-test:2.7.1'
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.1'
+
 }
 
 // Helps faster load times in Crio workspace.
