@@ -10,12 +10,10 @@ import com.crio.starter.exchange.PostResponse;
 import com.crio.starter.repository.PostRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,13 +50,6 @@ public class PostServiceImpl implements PostService{
         return responsePostDto;
         
     }
-
-    // public boolean equals(Post alreadyPresenPost,Post post){
-    //     if(alreadyPresenPost.getUrl().equals(post.getUrl()) && alreadyPresenPost.getCaption().equals(post.getCaption())){
-    //         return true;
-    //     }
-    //     return false;
-    // }
 
     public List<PostResponse> getPost(){
         Direction direction=Direction.DESC;

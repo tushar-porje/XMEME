@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.net.ssl.HttpsURLConnection;
 import com.crio.starter.exchange.PostDto;
 import com.crio.starter.exchange.PostResponse;
-import com.crio.starter.repository.PostRepo;
 import com.crio.starter.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,23 +27,25 @@ public class PostController {
     
     @PostMapping("/")
     ResponseEntity<Map<String,String>> createPost(@RequestBody PostDto postDto){
-        PostDto postCreatedDto;        
+        if(postDto==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }    
         Map<String,String> map=new HashMap<>();
-        postCreatedDto = postService.createPost(postDto);
+        PostDto postCreatedDto = postService.createPost(postDto);
         map.put("id", Long.toString(postCreatedDto.getId()));
-        return ResponseEntity.ok(map);
+        return new ResponseEntity<Map<String,String>>(map, HttpStatus.OK);
     }
 
-    //get all atmost 100 latest post
+    //get atmost 100 latest post
     @GetMapping("/")
     ResponseEntity<List<PostResponse>> getPost(){
         List<PostResponse> responsePosts=postService.getPost();
-        return ResponseEntity.ok(responsePosts);
+        return new ResponseEntity<List<PostResponse>>(responsePosts, HttpStatus.OK);
     }
 
     @GetMapping("/{Id}")
     ResponseEntity<PostDto> getPostById(@PathVariable("Id") Long Id){
         PostDto responsePosts=postService.getPostById(Id);
-        return ResponseEntity.ok(responsePosts);
+        return new ResponseEntity<PostDto>(responsePosts, HttpStatus.OK);
     }
 }
