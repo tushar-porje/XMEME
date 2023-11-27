@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.net.ssl.HttpsURLConnection;
+import javax.validation.Valid;
 import com.crio.starter.exchange.PostDto;
 import com.crio.starter.exchange.PostResponse;
 import com.crio.starter.service.PostService;
@@ -26,10 +26,7 @@ public class PostController {
     private final PostService postService;
     
     @PostMapping("/")
-    ResponseEntity<Map<String,String>> createPost(@RequestBody PostDto postDto){
-        if(postDto==null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }    
+    ResponseEntity<Map<String,String>> createPost(@Valid @RequestBody PostDto postDto){    
         Map<String,String> map=new HashMap<>();
         PostDto postCreatedDto = postService.createPost(postDto);
         map.put("id", Long.toString(postCreatedDto.getId()));
@@ -43,6 +40,8 @@ public class PostController {
         return new ResponseEntity<List<PostResponse>>(responsePosts, HttpStatus.OK);
     }
 
+    //get post by id
+    //if id not present return 404 error code
     @GetMapping("/{Id}")
     ResponseEntity<PostDto> getPostById(@PathVariable("Id") Long Id){
         PostDto responsePosts=postService.getPostById(Id);

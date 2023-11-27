@@ -18,7 +18,7 @@ public class SequenceGeneratorService {
 
     public long generateSequence(String seqName) {
 
-        Query query = new Query(Criteria.where("_id").is(seqName));
+        Query query = new Query(Criteria.where("id").is(seqName));
         Update update = new Update().inc("seq_no", 1);
 
         FindAndModifyOptions options = new FindAndModifyOptions();
